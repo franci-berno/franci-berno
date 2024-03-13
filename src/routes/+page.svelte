@@ -144,8 +144,8 @@
 <svelte:head>
   <title>Francesco</title>
   <meta name="description" content="Francesco Bernini | Personal Trainer" />
-  <link rel="alternate" hreflang="en" href="https://editable.website" />
-  <link rel="canonical" href="https://editable.website" />
+  <link rel="alternate" hreflang="en" href="https://franci-berno.github.io" />
+  <link rel="canonical" href="https:/franci-berno.github.io" />
 </svelte:head>
 
 <WebsiteHeader bind:showUserMenu on:cancel={initOrReset} on:save={savePage}>
