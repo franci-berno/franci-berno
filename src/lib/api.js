@@ -2,7 +2,7 @@ import slugify from 'slugify';
 import { SHORTCUTS } from './constants';
 import Database from 'better-sqlite3';
 import { nanoid } from '$lib/util';
-import { DB_PATH, ADMIN_PASSWORD } from '$env/static/private';
+import { DB_PATH, ADMIN_PASSWORD } from '$env/dynamic/private';
 import { Blob } from 'node:buffer';
 
 const db = new Database(DB_PATH, {
