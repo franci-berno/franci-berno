@@ -2,7 +2,7 @@
   import { classNames } from '$lib/util';
   import NotEditable from './NotEditable.svelte';
   import { isEditing, currentUser } from '$lib/stores.js';
-  import { base } from "$app/paths";
+  import { base } from '$app/paths';
 
   export let showUserMenu = undefined;
 
@@ -61,8 +61,10 @@
           </svg>
         </button> -->
         <a class="mr-4 font-medium px-2 py-1 rounded-md hover:text-black" href={base}> About </a>
-        <a class="mr-4 font-medium px-2 py-1 rounded-md hover:text-black" href="/blog"> Blog </a>
-        <a class="mr-4 font-medium px-2 py-1 rounded-md hover:text-black" href="/#contact">
+        <a class="mr-4 font-medium px-2 py-1 rounded-md hover:text-black" href={base + '/blog'}>
+          Blog
+        </a>
+        <a class="mr-4 font-medium px-2 py-1 rounded-md hover:text-black" href={base + '/#contact'}>
           Contact
         </a>
         <div class="flex-1" />
