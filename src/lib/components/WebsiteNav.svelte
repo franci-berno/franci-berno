@@ -1,37 +1,34 @@
 <script>
   import { classNames } from '$lib/util';
-  import Modal from './Modal.svelte';
   import NotEditable from './NotEditable.svelte';
-  import Search from './Search.svelte';
   import { isEditing, currentUser } from '$lib/stores.js';
+  import { base } from "$app/paths";
 
-  // TODO: Replace with a globally managed context menu implementation (only one active)
   export let showUserMenu = undefined;
-  export let showSearch = undefined;
 
-  function onKeyDown(e) {
-    // Close modals
-    if (e.key === 'Escape') {
-      showSearch = false;
-      showUserMenu = false;
-    }
-    // Trigger the search panel
-    if (e.key === 'k' && e.metaKey) {
-      showSearch = true;
-    }
-    // Turn on editing
-    if (e.key === 'e' && e.metaKey) {
-      $isEditing = true;
-      console.log('Editing enabled');
-    }
-  }
+  // function onKeyDown(e) {
+  //   // Close modals
+  //   if (e.key === 'Escape') {
+  //     showSearch = false;
+  //     showUserMenu = false;
+  //   }
+  //   // Trigger the search panel
+  //   if (e.key === 'k' && e.metaKey) {
+  //     showSearch = true;
+  //   }
+  //   // Turn on editing
+  //   if (e.key === 'e' && e.metaKey) {
+  //     $isEditing = true;
+  //     console.log('Editing enabled');
+  //   }
+  // }
 </script>
 
-{#if showSearch}
+<!-- {#if showSearch}
   <Modal position="top" on:close={() => (showSearch = false)}>
     <Search bind:showSearch />
   </Modal>
-{/if}
+{/if} -->
 
 <div
   class={classNames(
@@ -43,7 +40,7 @@
     <NotEditable>
       <div class="flex items-center relative">
         <div class="flex-1" />
-        <button
+        <!-- <button
           title="Search"
           class={classNames('mr-6 hover:text-black')}
           on:click={() => (showSearch = true)}
@@ -62,8 +59,8 @@
               d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
             />
           </svg>
-        </button>
-        <a class="mr-4 font-medium px-2 py-1 rounded-md hover:text-black" href="/"> About </a>
+        </button> -->
+        <a class="mr-4 font-medium px-2 py-1 rounded-md hover:text-black" href={base}> About </a>
         <a class="mr-4 font-medium px-2 py-1 rounded-md hover:text-black" href="/blog"> Blog </a>
         <a class="mr-4 font-medium px-2 py-1 rounded-md hover:text-black" href="/#contact">
           Contact
