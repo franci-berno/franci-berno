@@ -3,12 +3,7 @@
   import PlainText from '$lib/components/PlainText.svelte';
   import RichText from '$lib/components/RichText.svelte';
   import LoginMenu from '$lib/components/LoginMenu.svelte';
-  import PrimaryButton from '$lib/components/PrimaryButton.svelte';
-  import { fetchJSON } from '$lib/util';
-  import { currentUser, isEditing } from '$lib/stores.js';
   import WebsiteHeader from '$lib/components/WebsiteHeader.svelte';
-
-  export let data;
 
   let showUserMenu = false,
     title,
@@ -24,8 +19,8 @@
       ['Ken Experiences GmbH', 'Mozartstraße 56', '4020 Linz, Austria'].join('<br/>'),
       [
         'Managing Director: DI Michael Aufreiter',
-        'Register No: FN 408728x',
-        'Court: Linz',
+        'Salsomaggiore Terme',
+        'Italia > Parma',
         'VAT ID: ATU68395257'
       ].join('<br/>')
     ]
