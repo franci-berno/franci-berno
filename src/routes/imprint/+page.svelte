@@ -19,54 +19,28 @@
   // --------------------------------------------------------------------------
 
   function initOrReset() {
-    $currentUser = data.currentUser;
-    title = data.page?.title || 'Imprint';
-    imprint =
-      data.page?.imprint ||
+    title = 'Imprint';
+    imprint = [
+      ['Ken Experiences GmbH', 'Mozartstraße 56', '4020 Linz, Austria'].join('<br/>'),
       [
-        ['Ken Experiences GmbH', 'Mozartstraße 56', '4020 Linz, Austria'].join('<br/>'),
-        [
-          'Managing Director: DI Michael Aufreiter',
-          'Register No: FN 408728x',
-          'Court: Linz',
-          'VAT ID: ATU68395257'
-        ].join('<br/>')
-      ]
-        .map(text => `<p>${text}</p>`)
-        .join('\n');
+        'Managing Director: DI Michael Aufreiter',
+        'Register No: FN 408728x',
+        'Court: Linz',
+        'VAT ID: ATU68395257'
+      ].join('<br/>')
+    ]
+      .map(text => `<p>${text}</p>`)
+      .join('\n');
   }
 
   initOrReset();
-
-  function toggleEdit() {
-    $isEditing = true;
-    showUserMenu = false;
-  }
-
-  async function savePage() {
-    if (!$currentUser) return alert('Sorry, you are not authorized.');
-    try {
-      fetchJSON('POST', '/api/save-page', {
-        pageId: 'imprint',
-        page: {
-          title,
-          imprint
-        }
-      });
-      $isEditing = false;
-    } catch (err) {
-      console.error(err);
-      alert('There was an error. Please try again.');
-    }
-  }
 </script>
 
 <svelte:head>
   <title>Imprint</title>
 </svelte:head>
 
-<WebsiteHeader bind:showUserMenu on:cancel={initOrReset} on:save={savePage}>
-  <PrimaryButton on:click={toggleEdit}>Edit page</PrimaryButton>
+<WebsiteHeader bind:showUserMenu on:cancel={initOrReset}>
   <LoginMenu />
 </WebsiteHeader>
 
