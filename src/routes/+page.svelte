@@ -300,4 +300,4 @@
   </div>
 </div>
 
-<Footer counter="/" />
+<Footer />
