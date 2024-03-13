@@ -13,6 +13,7 @@
   import NotEditable from '$lib/components/NotEditable.svelte';
   import { currentUser, isEditing } from '$lib/stores.js';
   import WebsiteHeader from '$lib/components/WebsiteHeader.svelte';
+  import { base } from "$app/paths";
   import { dati } from './data';
 
   export let data;
@@ -84,7 +85,7 @@
   function addTestimonial() {
     testimonials.push({
       text: '“Add a quote text here”',
-      image: '/images/person-placeholder.jpg',
+      image: base + '/images/person-placeholder.jpg',
       name: 'Firstname Lastname · example.com'
     });
     testimonials = testimonials; // trigger update
@@ -299,4 +300,4 @@
   </div>
 </div>
 
-<Footer counter="/" />
+<Footer />

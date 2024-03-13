@@ -1,9 +1,6 @@
 <script>
-  import { onMount } from 'svelte';
-  import { fetchJSON } from '$lib/util';
   import NotEditable from '$lib/components/NotEditable.svelte';
 
-  export let counter;
   // let count;
 
   // onMount(async () => {
