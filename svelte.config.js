@@ -7,9 +7,9 @@ const config = {
   kit: {
     adapter: adapter(),
     paths: {
-      base: dev ? '' : 'franci-berno.github.io'
+      base: dev ? '' : process.env.BASE_PATH
     }
-  },
+  }
 };
 
 export default config;
