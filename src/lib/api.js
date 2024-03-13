@@ -2,15 +2,13 @@ import slugify from 'slugify';
 import { SHORTCUTS } from './constants';
 import Database from 'better-sqlite3';
 import { nanoid } from '$lib/util';
-import { DB_PATH, ADMIN_PASSWORD } from '$env/dynamic/private';
 import { Blob } from 'node:buffer';
 
-const db = new Database(DB_PATH, {
+const db = new Database('./data/db.sqlite3', {
   // verbose: console.log
 });
 db.pragma('journal_mode = WAL');
 db.pragma('case_sensitive_like = true');
-
 
 /**
  * Creates a new article
@@ -18,29 +16,25 @@ db.pragma('case_sensitive_like = true');
 export async function createArticle(title, content, teaser, currentUser) {
   if (!currentUser) throw new Error('Not authorized');
 
-    let slug = slugify(title, {
-      lower: true,
-      strict: true
-    });
+  let slug = slugify(title, {
+    lower: true,
+    strict: true
+  });
 
-    // If slug is already used, we add a unique postfix
-    const articleExists = db.prepare('SELECT * FROM articles WHERE slug = ?').get(slug);
-    if (articleExists) {
-      slug = slug + '-' + nanoid();
-    }
+  // If slug is already used, we add a unique postfix
+  const articleExists = db.prepare('SELECT * FROM articles WHERE slug = ?').get(slug);
+  if (articleExists) {
+    slug = slug + '-' + nanoid();
+  }
 
-    db.prepare(`
+  db.prepare(
+    `
         INSERT INTO articles (slug, title, content, teaser, published_at)
         VALUES(?, ?, ?, ?, DATETIME('now'))
-      `)
-      .run(
-        slug,
-        title,
-        content,
-        teaser
-      );
+      `
+  ).run(slug, title, content, teaser);
 
-  const newArticleQuery = "SELECT slug, created_at FROM articles WHERE slug = ?";
+  const newArticleQuery = 'SELECT slug, created_at FROM articles WHERE slug = ?';
   const newArticle = db.prepare(newArticleQuery).get(slug);
   return newArticle;
 }
@@ -59,7 +53,7 @@ export async function updateArticle(slug, title, content, teaser, currentUser) {
   const updateStmt = db.prepare(query);
   updateStmt.run(title, content, teaser, slug);
 
-  const updatedArticleQuery = "SELECT slug, updated_at FROM articles WHERE slug = ?";
+  const updatedArticleQuery = 'SELECT slug, updated_at FROM articles WHERE slug = ?';
   const updatedArticle = db.prepare(updatedArticleQuery).get(slug);
 
   return updatedArticle;
@@ -70,7 +64,7 @@ export async function updateArticle(slug, title, content, teaser, currentUser) {
 */
 export async function authenticate(password, sessionTimeout) {
   const expires = __getDateTimeMinutesAfter(sessionTimeout);
-  if (password === ADMIN_PASSWORD) {
+  if (password === 'password') {
     const sessionId = nanoid();
 
     // Now is a good time to remove expired sessions
@@ -197,7 +191,7 @@ export async function search(q, currentUser) {
  * Retrieve article based on a given slug
  */
 export async function getArticleBySlug(slug) {
-  const query = "SELECT * FROM articles WHERE slug = ?";
+  const query = 'SELECT * FROM articles WHERE slug = ?';
   const article = db.prepare(query).get(slug);
   return article;
 }
@@ -208,7 +202,7 @@ export async function getArticleBySlug(slug) {
 export async function deleteArticle(slug, currentUser) {
   if (!currentUser) throw new Error('Not authorized');
 
-  const query = "DELETE FROM articles WHERE slug = ?";
+  const query = 'DELETE FROM articles WHERE slug = ?';
   const result = db.prepare(query).run(slug);
 
   return result.changes > 0;
@@ -222,19 +216,9 @@ export async function deleteArticle(slug, currentUser) {
  * In this minimal setup there is only one user, the website admin.
  * If you want to support multiple users/authors you want to return the current user record here.
  */
-export async function getCurrentUser(session_id) {
-  const stmt = db.prepare(
-    'SELECT session_id, expires FROM sessions WHERE session_id = ? AND expires > ?'
-  );
-  const session = stmt.get(session_id, new Date().toISOString());
-
-  if (session) {
-    return { name: 'Admin' };
-  } else {
-    return null;
-  }
+export async function getCurrentUser() {
+  return { name: 'Admin' };
 }
-
 
 /**
  * Update the page
@@ -256,13 +240,8 @@ export async function createOrUpdatePage(page_id, page, currentUser) {
 /**
  * E.g. getPage("home") gets all dynamic data for the home page
  */
-export async function getPage(page_id) {
-  const page = db.prepare('SELECT data FROM pages WHERE page_id = ?').get(page_id);
-  if (page?.data) {
-    return JSON.parse(page.data);
-  } else {
+export async function getPage() {
     return null;
-  }
 }
 
 /**
