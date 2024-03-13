@@ -42,7 +42,7 @@
     testimonials = dati.testimonals;
     bio = dati.bio;
 
-    bioPicture = '/images/person-placeholder.jpg';
+    bioPicture = base + '/images/person-placeholder.jpg';
     bioTitle = "Hi, I'm Michael — I want your website to be editable.";
 
     introStep1 = {
@@ -84,7 +84,7 @@
   function addTestimonial() {
     testimonials.push({
       text: '“Add a quote text here”',
-      image: '/images/person-placeholder.jpg',
+      image: base + '/images/person-placeholder.jpg',
       name: 'Firstname Lastname · example.com'
     });
     testimonials = testimonials; // trigger update
