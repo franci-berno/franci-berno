@@ -4,14 +4,14 @@
   import NotEditable from '$lib/components/NotEditable.svelte';
 
   export let counter;
-  let count;
+  // let count;
 
-  onMount(async () => {
-    if (counter) {
-      const result = await fetchJSON('GET', `/api/counter?c=${counter}`);
-      count = result.count;
-    }
-  });
+  // onMount(async () => {
+  //   if (counter) {
+  //     const result = await fetchJSON('GET', `/api/counter?c=${counter}`);
+  //     count = result.count;
+  //   }
+  // });
 </script>
 
 <NotEditable>
@@ -21,7 +21,7 @@
       <a href="/blog">Blog</a>
       <a href="/#contact">Contact</a>
       <a href="/imprint">Imprint</a>
-      {#if count}
+      <!-- {#if count}
         <div class="flex-1" />
         <div class="text-xs font-normal flex items-center space-x-2">
           <svg
@@ -45,7 +45,7 @@
           </svg>
           <span>{count}</span>
         </div>
-      {/if}
+      {/if} -->
     </div>
   </div>
 </NotEditable>
