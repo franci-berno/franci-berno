@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
   import { onMount, onDestroy } from 'svelte';
   import { toHTML, fromHTML } from '$lib/editor/prosemirrorUtil';
   import {
@@ -83,4 +83,4 @@
     white-space: pre-wrap;
     word-wrap: break-word;
   }
-</style>
+</style> -->

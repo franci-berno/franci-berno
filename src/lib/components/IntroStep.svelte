@@ -1,8 +1,16 @@
-<script>
+<script context="module" lang="ts">
+  export type IntroStepType = {
+    label: string;
+    title: string;
+    description: string;
+  };
+</script>
+
+<script lang="ts">
   import PlainText from './PlainText.svelte';
   import RichText from './RichText.svelte';
 
-  export let intro;
+  export let intro: IntroStepType;
 </script>
 
 <div class="my-12">

@@ -1,19 +1,16 @@
-<script>
-  export let value = '';
-  export let id;
-  export let type = 'text';
-  export let name;
-  export let required = false;
-  export let inputRef = null;
-  export let placeholder = '';
-  function setType(node) {
-    node.type = type;
-  }
+<script lang="ts">
+  export let value = '',
+    id: string | undefined = undefined,
+    type: 'button' | 'checkbox' | 'password' | 'text' = 'text',
+    name: string | undefined = undefined,
+    required: boolean | undefined = false,
+    inputRef: any = null,
+    placeholder: string | undefined = undefined;
 </script>
 
 <input
   autocomplete="off"
-  use:setType
+  {...{ type }}
   {placeholder}
   {name}
   {id}
