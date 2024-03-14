@@ -11,8 +11,6 @@
   import WebsiteNav from '$lib/components/WebsiteNav.svelte';
   import { base } from '$app/paths';
 
-  export let data;
-
   // --------------------------------------------------------------------------
   // DEFAULT PAGE CONTENT - AJDUST TO YOUR NEEDS
   // --------------------------------------------------------------------------
@@ -41,7 +39,7 @@
   testimonials = dati.testimonals;
   bio = dati.bio;
 
-    bioPicture = base + '/images/person-placeholder.jpg';
+    bioPicture = `${base}/images/person-placeholder.jpg`;
     bioTitle = "Hi, I'm Michael — I want your website to be editable.";
 
   introStep1 = {
@@ -172,7 +170,7 @@
     <div class="flex flex-col sm:flex-row sm:space-x-6 md:space-x-8 space-y-4 sm:space-y-0">
       <PrimaryButton size="lg" href={`mailto:${EMAIL}`}>Email</PrimaryButton>
       <SecondaryButton size="lg" href={`https://${INSTAGRAM}`}>
-        <div class="flex items-center gap-1">
+        <div class="flex items-center justify-center gap-1">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             x="0px"
