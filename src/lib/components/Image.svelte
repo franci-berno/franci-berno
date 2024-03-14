@@ -1,32 +1,13 @@
-<script>
-  import { isEditing } from '$lib/stores.js';
+<script lang="ts">
+  export let src: string | undefined = undefined,
+    alt: string | undefined = undefined,
+    maxWidth: number | undefined = undefined,
+    quality: number | undefined = undefined,
+    maxHeight: number | undefined = undefined;
 
-  export let src;
-  export let alt;
-  export let uploadPrompt = undefined;
-  export let maxWidth;
-  export let maxHeight;
-  export let quality;
-  let className = '';
-  let previewSrc;
+  let className: string | undefined = undefined;
+
   export { className as class };
 </script>
 
-{#if $isEditing}
-  {#await import('./ImageEditor.svelte')}
-    <img class={className} src={previewSrc || src} {alt} />
-  {:then ImageEditor}
-    <ImageEditor.default
-      class={className}
-      bind:src
-      bind:previewSrc
-      {alt}
-      {uploadPrompt}
-      {maxWidth}
-      {maxHeight}
-      {quality}
-    />
-  {/await}
-{:else}
-  <img width={maxWidth} height={maxHeight} class={className} {src} {alt} />
-{/if}
+<img width={maxWidth} height={maxHeight} class={className} {src} {alt} />

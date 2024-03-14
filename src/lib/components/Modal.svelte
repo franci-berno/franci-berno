@@ -1,7 +1,7 @@
-<script>
+<!-- <script lang="ts">
   import { createEventDispatcher, onMount, onDestroy } from 'svelte';
   import { browser } from '$app/environment';
-  import { classNames } from '$lib/util';
+  import { classNames } from '../util';
 
   // Only relevant for mobile
   export let position = 'bottom';
@@ -39,4 +39,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->

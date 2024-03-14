@@ -1,8 +1,14 @@
-<script>
-  export let article;
-  export let firstEntry;
+<script lang="ts">
   import { classNames } from '$lib/util';
   import SecondaryButton from './SecondaryButton.svelte';
+
+  export let article: {
+      published_at: string;
+      teaser: string;
+      slug: string;
+      title: string;
+    },
+    firstEntry: boolean = false;
 </script>
 
 <div>

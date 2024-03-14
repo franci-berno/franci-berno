@@ -1,7 +1,4 @@
-/** 
- * Adapted from svelte-easy-crop
- * https://github.com/ValentinH/svelte-easy-crop 
- */
+import type { NumericRange } from '@sveltejs/kit';
 
 /**
  * Compute the dimension of the crop area based on image size and aspect ratio
@@ -9,7 +6,7 @@
  * @param imgHeight height of the src image in pixels
  * @param aspect aspect ratio of the crop
  */
-export function getCropSize(imgWidth, imgHeight, aspect) {
+export function getCropSize(imgWidth: number, imgHeight: number, aspect: any) {
   if (imgWidth >= imgHeight * aspect) {
     return {
       width: imgHeight * aspect,
@@ -30,19 +27,47 @@ export function getCropSize(imgWidth, imgHeight, aspect) {
  * @param  zoom zoom value
  * @returns
  */
-export function restrictPosition(position, imageSize, cropSize, zoom) {
+export function restrictPosition(
+  position: {
+    x: number;
+    y: number;
+  },
+  imageSize: {
+    width: number;
+    height: number;
+  },
+  cropSize: {
+    width: number;
+    height: number;
+  },
+  zoom: number
+) {
   return {
     x: restrictPositionCoord(position.x, imageSize.width, cropSize.width, zoom),
     y: restrictPositionCoord(position.y, imageSize.height, cropSize.height, zoom)
   };
 }
 
-function restrictPositionCoord(position, imageSize, cropSize, zoom) {
+function restrictPositionCoord(
+  position: number,
+  imageSize: number,
+  cropSize: number,
+  zoom: number
+) {
   const maxPosition = (imageSize * zoom) / 2 - cropSize / 2;
   return Math.min(maxPosition, Math.max(position, -maxPosition));
 }
 
-export function getDistanceBetweenPoints(pointA, pointB) {
+export function getDistanceBetweenPoints(
+  pointA: {
+    x: number;
+    y: number;
+  },
+  pointB: {
+    x: number;
+    y: number;
+  }
+) {
   return Math.sqrt(Math.pow(pointA.y - pointB.y, 2) + Math.pow(pointA.x - pointB.x, 2));
 }
 
@@ -56,7 +81,25 @@ export function getDistanceBetweenPoints(pointA, pointB) {
  * @param zoom zoom value
  * @param restrictPosition whether we should limit or not the cropped area
  */
-export function computeCroppedArea(crop, imgSize, cropSize, aspect, zoom, restrictPosition = true) {
+export function computeCroppedArea(
+  crop: {
+    x: number;
+    y: number;
+  },
+  imgSize: {
+    height: number;
+    width: number;
+    naturalWidth: number;
+    naturalHeight: number;
+  },
+  cropSize: {
+    height: number;
+    width: number;
+  },
+  aspect: number,
+  zoom: number,
+  restrictPosition = true
+) {
   const limitAreaFn = restrictPosition ? limitArea : noOp;
   const croppedAreaPercentages = {
     x: limitAreaFn(
@@ -119,12 +162,12 @@ export function computeCroppedArea(crop, imgSize, cropSize, aspect, zoom, restri
  * @param value
  * @param shouldRound
  */
-function limitArea(max, value, shouldRound = false) {
+function limitArea(max: number, value: number, shouldRound: boolean = false) {
   const v = shouldRound ? Math.round(value) : value;
   return Math.min(max, Math.max(0, v));
 }
 
-function noOp(max, value) {
+function noOp(max: number, value: any) {
   return value;
 }
 
@@ -133,14 +176,23 @@ function noOp(max, value) {
  * @param a
  * @param b
  */
-export function getCenter(a, b) {
+export function getCenter(
+  a: {
+    x: number;
+    y: number;
+  },
+  b: {
+    x: number;
+    y: number;
+  }
+) {
   return {
     x: (b.x + a.x) / 2,
     y: (b.y + a.y) / 2
   };
 }
 
-export const createImage = url =>
+export const createImage = (url: string) =>
   new Promise((resolve, reject) => {
     const image = new Image();
     image.addEventListener('load', () => resolve(image));
@@ -149,14 +201,14 @@ export const createImage = url =>
     image.src = url;
   });
 
-export function getRadianAngle(degreeValue) {
+export function getRadianAngle(degreeValue: number) {
   return (degreeValue * Math.PI) / 180;
 }
 
 /**
  * Returns the new bounding area of a rotated rectangle.
  */
-export function rotateSize(width, height, rotation) {
+export function rotateSize(width: number, height: number, rotation: number) {
   const rotRad = getRadianAngle(rotation);
 
   return {
@@ -169,12 +221,12 @@ export function rotateSize(width, height, rotation) {
  * This function was adapted from the one in the ReadMe of https://github.com/DominicTobias/react-image-crop
  */
 export async function getCroppedImg(
-  imageSrc,
-  pixelCrop,
+  imageSrc: any,
+  pixelCrop: any,
   rotation = 0,
   flip = { horizontal: false, vertical: false }
 ) {
-  const image = await createImage(imageSrc);
+  const image: any = await createImage(imageSrc);
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');
 
@@ -215,7 +267,7 @@ export async function getCroppedImg(
   // return canvas.toDataURL('image/jpeg');
 
   // As a blob
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     canvas.toBlob(file => {
       resolve(file);
       // resolve(URL.createObjectURL(file));

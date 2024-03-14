@@ -1,6 +1,6 @@
-<script>
+<!-- <script lang="ts">
   import { onMount } from 'svelte';
-  import { debounce, classNames } from '$lib/util';
+  import { debounce, classNames } from '../util';
   import { SHORTCUTS } from '$lib/constants';
   import { goto } from '$app/navigation';
 
@@ -121,4 +121,4 @@
   {/each}
 </div>
 
-<svelte:window on:keydown={onKeyDown} />
+<svelte:window on:keydown={onKeyDown} /> -->

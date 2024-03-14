@@ -1,40 +1,45 @@
 import { customAlphabet } from 'nanoid';
+import { stringify } from 'postcss';
+import type { NodeType } from 'prosemirror-model';
 
 export function is_safari() {
   // Detect Chrome
-  let chrome_agent = navigator.userAgent.indexOf("Chrome") > -1;
+  let chrome_agent = navigator.userAgent.indexOf('Chrome') > -1;
   // Detect Safari
-  let safari_agent = navigator.userAgent.indexOf("Safari") > -1;
+  let safari_agent = navigator.userAgent.indexOf('Safari') > -1;
   // Discard Safari since it also matches Chrome
-  if ((chrome_agent) && (safari_agent)) safari_agent = false;
+  if (chrome_agent && safari_agent) safari_agent = false;
   return safari_agent;
 }
 
-export function classNames(...classes) {
+export function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ');
 }
 
 // We don't use "_" and "-" for better readability
-const _nanoid = customAlphabet('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz', 21);
+const _nanoid = customAlphabet(
+  '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz',
+  21
+);
 
 export function nanoid() {
   return _nanoid();
 }
 
-export function formatDate(dateString, withTime) {
+export function formatDate(dateString: string, withTime: unknown) {
   const date = new Date(dateString);
   if (withTime) {
     if (date.toDateString() === new Date().toDateString()) {
       // on same day, only show the time
       return date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
     } else {
-      const opts = {
+      const opts: Intl.DateTimeFormatOptions = {
         month: 'short',
         day: 'numeric',
         hour: 'numeric',
         minute: 'numeric',
         hour12: true
-      }
+      };
       if (date.getFullYear() !== new Date().getFullYear()) {
         opts.year = 'numeric';
       }
@@ -49,8 +54,8 @@ export function formatDate(dateString, withTime) {
   }
 }
 
-export function debounce(node, params) {
-  let timer;
+export function debounce(node: Node, params: any) {
+  let timer: any;
 
   return {
     update() {
@@ -63,7 +68,7 @@ export function debounce(node, params) {
   };
 }
 
-export function extractTeaser(body) {
+export function extractTeaser(body: any) {
   const teaser = [...body.querySelectorAll('p')].map(n => n.textContent).join(' ');
   if (teaser.length > 512) {
     return teaser.slice(0, 512).concat('…');
@@ -72,11 +77,17 @@ export function extractTeaser(body) {
   }
 }
 
-export function resizeImage(file, maxWidth, maxHeight, quality, content_type) {
+export function resizeImage(
+  file: any,
+  maxWidth: any,
+  maxHeight: any,
+  quality: any,
+  content_type: any
+) {
   const reader = new FileReader();
   reader.readAsDataURL(file);
   return new Promise((resolve, reject) => {
-    reader.onload = event => {
+    reader.onload = (event: any) => {
       const image = new Image();
       image.src = event.target.result;
       image.onload = () => {
@@ -95,7 +106,7 @@ export function resizeImage(file, maxWidth, maxHeight, quality, content_type) {
         const canvas = document.createElement('canvas');
         canvas.width = newWidth;
         canvas.height = newHeight;
-        const context = canvas.getContext('2d');
+        const context: any = canvas.getContext('2d');
         context.drawImage(image, 0, 0, newWidth, newHeight);
         canvas.toBlob(
           blob => {
@@ -118,9 +129,9 @@ export function resizeImage(file, maxWidth, maxHeight, quality, content_type) {
 /**
  * Get image dimensions from a file
  */
-export async function getDimensions(file) {
+export async function getDimensions(file: any) {
   return new Promise((resolve, reject) => {
-    const img = new window.Image();
+    const img: any = new window.Image();
     img.onload = function () {
       resolve({ width: this.width, height: this.height });
     };
@@ -131,7 +142,7 @@ export async function getDimensions(file) {
   });
 }
 
-export async function fetchJSON(method, url, data = undefined) {
+export async function fetchJSON(method: any, url: any, data = undefined) {
   const response = await fetch(url, {
     method: method,
     body: JSON.stringify(data),

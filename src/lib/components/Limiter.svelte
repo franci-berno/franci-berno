@@ -1,5 +1,5 @@
-<script>
-  import { classNames } from '$lib/util';
+<script lang="ts">
+  import { classNames } from '../util';
   export let noPadding = false;
 </script>
 
