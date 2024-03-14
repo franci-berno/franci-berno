@@ -8,11 +8,11 @@
   <div class="max-w-xs mx-auto py-4">
     <div class="flex items-center relative">
       <div class="flex-1" />
-      <a class="mr-4 font-medium px-2 py-1 rounded-md hover:text-black" href={base}> About </a>
-      <a class="mr-4 font-medium px-2 py-1 rounded-md hover:text-black" href={base + '/blog'}>
-        Blog
+      <a class="mr-4 font-medium px-2 py-1 rounded-md hover:text-black" href={`${base}/`}>About</a>
+      <a class="mr-4 font-medium px-2 py-1 rounded-md hover:text-black" href={`${base}/imprint`}>
+        Imprint
       </a>
-      <a class="mr-4 font-medium px-2 py-1 rounded-md hover:text-black" href={base + '/#contact'}>
+      <a class="mr-4 font-medium px-2 py-1 rounded-md hover:text-black" href={`${base}/#contact`}>
         Contact
       </a>
       <div class="flex-1" />
