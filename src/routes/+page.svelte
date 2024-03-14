@@ -9,6 +9,7 @@
   import Image from '../lib/components/Image.svelte';
   import { dati } from './data_for_site';
   import WebsiteNav from '$lib/components/WebsiteNav.svelte';
+  import { base } from '$app/paths';
 
   export let data;
 
@@ -40,7 +41,7 @@
   testimonials = dati.testimonals;
   bio = dati.bio;
 
-    bioPicture = '/images/person-placeholder.jpg';
+    bioPicture = base + '/images/person-placeholder.jpg';
     bioTitle = "Hi, I'm Michael — I want your website to be editable.";
 
   introStep1 = {
